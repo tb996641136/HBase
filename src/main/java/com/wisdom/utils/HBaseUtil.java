@@ -4,6 +4,7 @@ import org.apache.hadoop.conf.Configuration;
 import org.apache.hadoop.hbase.*;
 import org.apache.hadoop.hbase.client.*;
 import org.apache.hadoop.hbase.util.Bytes;
+import org.apache.hadoop.security.UserGroupInformation;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -18,7 +19,17 @@ public class HBaseUtil {
     public static Configuration conf;
 
     static {
+        System.setProperty("java.security.krb5.conf", "C:\\Users\\tianbo\\Desktop\\krb5.conf");
         conf = HBaseConfiguration.create();
+        conf.set("hadoop.security.authentication", "Kerberos" );
+        UserGroupInformation. setConfiguration(conf);
+        try {
+            //UserGroupInformation.loginUserFromKeytab("hbase_admin@FAYSON.COM", "C:\\Users\\tianbo\\Desktop\\hbase_admin.keytab");
+            UserGroupInformation.loginUserFromKeytab("cloudera-test@FAYSON.COM", "C:\\Users\\tianbo\\Desktop\\cloudera-test.keytab");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
     }
 
     /*

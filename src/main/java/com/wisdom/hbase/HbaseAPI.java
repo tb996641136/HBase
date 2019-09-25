@@ -19,7 +19,7 @@ import java.io.IOException;
 public class HbaseAPI {
     public static void main(String[] args) throws IOException {
         System.out.println(HBaseUtil.isTableExist("student"));
-        HBaseUtil.getAllRow("student");
+        HBaseUtil.createTable("student","info");
     }
 
 
